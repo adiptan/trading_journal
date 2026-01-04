@@ -95,9 +95,59 @@ WEEKLY_REPORT_HOUR=18  # 18:00 МСК - недельный отчёт
 ```
 
 #### 4. Инициализируй базу данных
+
+**Проверь, что контейнер PostgreSQL запущен:**
 ```bash
-chmod +x init_trading_db.sh
-./init_trading_db.sh
+docker ps | grep database
+```
+
+**Создай базу данных и таблицы:**
+```bash
+# Замени DB_CONTAINER_NAME на имя своего PostgreSQL контейнера
+# Замени DB_USER на своего пользователя БД (например, diptan)
+
+# 1. Создай базу данных
+docker exec -i DB_CONTAINER_NAME psql -U DB_USER -d postgres <<EOF
+CREATE DATABASE trading_journal WITH OWNER = DB_USER ENCODING = 'UTF8';
+EOF
+
+# 2. Выдай права на схему
+docker exec -i DB_CONTAINER_NAME psql -U DB_USER -d trading_journal <<EOF
+GRANT ALL PRIVILEGES ON SCHEMA public TO DB_USER;
+EOF
+
+# 3. Инициализируй таблицы
+docker cp init_db.sql DB_CONTAINER_NAME:/tmp/init_db.sql
+docker exec -i DB_CONTAINER_NAME psql -U DB_USER -d trading_journal -f /tmp/init_db.sql
+
+# 4. Проверь что таблицы созданы
+docker exec -i DB_CONTAINER_NAME psql -U DB_USER -d trading_journal -c "\dt"
+```
+
+**Пример для конкретного контейнера:**
+
+Если твой контейнер называется `time_counting-database-1` и пользователь `diptan`:
+```bash
+# Создание БД
+docker exec -i time_counting-database-1 psql -U diptan -d postgres -c "CREATE DATABASE trading_journal WITH OWNER = diptan ENCODING = 'UTF8';"
+
+# Права на схему
+docker exec -i time_counting-database-1 psql -U diptan -d trading_journal -c "GRANT ALL PRIVILEGES ON SCHEMA public TO diptan;"
+
+# Инициализация таблиц
+docker cp init_db.sql time_counting-database-1:/tmp/init_db.sql
+docker exec -i time_counting-database-1 psql -U diptan -d trading_journal -f /tmp/init_db.sql
+
+# Проверка
+docker exec -i time_counting-database-1 psql -U diptan -d trading_journal -c "\dt"
+```
+
+Должен показать таблицы:
+```
+ Schema |    Name     | Type  | Owner  
+--------+-------------+-------+--------
+ public | daily_stats | table | diptan
+ public | trades      | table | diptan
 ```
 
 #### 5. Запусти бота
