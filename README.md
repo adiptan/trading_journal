@@ -104,7 +104,7 @@ docker ps | grep database
 **Создай базу данных и таблицы:**
 ```bash
 # Замени DB_CONTAINER_NAME на имя своего PostgreSQL контейнера
-# Замени DB_USER на своего пользователя БД (например, diptan)
+# Замени DB_USER на своего пользователя БД (например, username)
 
 # 1. Создай базу данных
 docker exec -i DB_CONTAINER_NAME psql -U DB_USER -d postgres <<EOF
@@ -126,28 +126,28 @@ docker exec -i DB_CONTAINER_NAME psql -U DB_USER -d trading_journal -c "\dt"
 
 **Пример для конкретного контейнера:**
 
-Если твой контейнер называется `time_counting-database-1` и пользователь `diptan`:
+Если твой контейнер называется `database-1` и пользователь `username`:
 ```bash
 # Создание БД
-docker exec -i time_counting-database-1 psql -U diptan -d postgres -c "CREATE DATABASE trading_journal WITH OWNER = diptan ENCODING = 'UTF8';"
+docker exec -i database-1 psql -U username -d postgres -c "CREATE DATABASE trading_journal WITH OWNER = username ENCODING = 'UTF8';"
 
 # Права на схему
-docker exec -i time_counting-database-1 psql -U diptan -d trading_journal -c "GRANT ALL PRIVILEGES ON SCHEMA public TO diptan;"
+docker exec -i database-1 psql -U username -d trading_journal -c "GRANT ALL PRIVILEGES ON SCHEMA public TO username;"
 
 # Инициализация таблиц
-docker cp init_db.sql time_counting-database-1:/tmp/init_db.sql
-docker exec -i time_counting-database-1 psql -U diptan -d trading_journal -f /tmp/init_db.sql
+docker cp init_db.sql database-1:/tmp/init_db.sql
+docker exec -i database-1 psql -U username -d trading_journal -f /tmp/init_db.sql
 
 # Проверка
-docker exec -i time_counting-database-1 psql -U diptan -d trading_journal -c "\dt"
+docker exec -i database-1 psql -U username -d trading_journal -c "\dt"
 ```
 
 Должен показать таблицы:
 ```
  Schema |    Name     | Type  | Owner  
 --------+-------------+-------+--------
- public | daily_stats | table | diptan
- public | trades      | table | diptan
+ public | daily_stats | table | username
+ public | trades      | table | username
 ```
 
 #### 5. Запусти бота
