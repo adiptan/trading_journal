@@ -131,8 +131,6 @@ trading-journal/
 ├── docker-compose.yml     # Docker Compose конфигурация
 ├── .env.example           # Пример переменных окружения
 ├── .dockerignore          # Исключения для Docker
-├── init_trading_db.sh     # Скрипт инициализации БД
-├── find_network.sh        # Утилита поиска сети Docker
 └── README.md              # Документация
 ```
 
