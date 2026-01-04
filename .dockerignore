@@ -1,0 +1,64 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Documentation
+*.md
+README.md
+LICENSE
+
+# Docker configs
+docker-compose*.yml
+
+# Scripts
+*.sh
+Makefile
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+
+# Database dumps
+*.sql.backup
+backup_*.sql
