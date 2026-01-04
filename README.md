@@ -57,8 +57,8 @@ SOL long 100 105 +25 план терпение
 
 #### 1. Клонируй репозиторий
 ```bash
-git clone https://github.com/yourusername/trading-journal-bot.git
-cd trading-journal-bot
+git clone https://github.com/adiptan/trading-journal.git
+cd trading-journal
 ```
 
 #### 2. Узнай сеть PostgreSQL контейнера
@@ -120,7 +120,7 @@ INFO - Bot started successfully
 
 ## 📁 Структура проекта
 ```
-trading-journal-bot/
+trading-journal/
 ├── bot.py                  # Основная логика бота
 ├── database.py             # Работа с PostgreSQL
 ├── analytics.py            # Аналитика и метрики
@@ -310,8 +310,8 @@ Pull requests приветствуются! Для крупных изменен
 
 **alexdiptan**
 
-- Telegram: [@yourusername](https://t.me/alexdiptan)
-- GitHub: [@yourusername](https://github.com/adiptan)
+- Telegram: [@alexdiptan](https://t.me/alexdiptan)
+- GitHub: [@adiptan](https://github.com/adiptan)
 
 ## 🙏 Благодарности
 
