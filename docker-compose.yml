@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  bot:
+    build:
+      context: ..
+      dockerfile: ./Dockerfile
+    image: trading_bot:latest  # Переиспользуем образ после билда
+    container_name: trading_bot
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - DB_HOST=time_counting-database-1
+      - DB_PORT=5432
+      - TZ=Europe/Moscow  # МСК
+    # Подключаемся к существующей сети
+    networks:
+      - database
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "5m"   # Ограничиваем размер логов (экономим место)
+        max-file: "2"    # Храним только 2 файла логов
+
+networks:
+  # Используем существующую сеть контейнера БД
+  database:
+    external: true
