@@ -3,8 +3,8 @@ version: '3.8'
 services:
   bot:
     build:
-      context: ..
-      dockerfile: ./Dockerfile
+      context: .
+      dockerfile: Dockerfile
     image: trading_bot:latest  # Переиспользуем образ после билда
     container_name: trading_bot
     restart: unless-stopped
